@@ -2,7 +2,40 @@ Top 10 highest reputation users in Victoria, BC that answered questions with Tag
 
 
 Query:
+SELECT TOP 10 
+  Users.Id, 
+  Users.DisplayName, 
+  Users.Reputation
 
+FROM
+  Users
+JOIN
+  Posts ON Users.Id = Posts.OwnerUserId
+
+WHERE
+  Users.Location = 'Victoria, BC'
+AND
+  Posts.Tags LIKE '%javascript%'
+  
+GROUP BY
+  Users.Id,
+  Users.DisplayName,
+  Users.Reputation
+
+ORDER BY
+  Reputation DESC
 
 
 Answer:
+Id      DisplayName      Reputation 
+------- ---------------- ---------- 
+1214800 brandonscript    28442      
+151365  logan            2647       
+107150  Jeffrey Guenther 538        
+1221690 Kluny            127        
+1237022 Matt Eff         41         
+683946  Yokel Pole       20         
+4313067 fearthainn       8          
+4628858 Omid Zamani      1          
+
+(8 row(s) returned)
