@@ -2,7 +2,46 @@ Top 10 Victoria, BC developers, that answered questions with tag â€žjavascriptâ€
 
 
 Query:
+SELECT TOP 10
+  Users.Id,
+  Users.DisplayName,
+  Users.Location,
+  ROUND((CAST(SUM(CASE WHEN a.Id=q.AcceptedAnswerId THEN 1 ELSE 0 END) AS float) / COUNT(a.Id)) * 100, 1) AS AcceptedAnswerPercentage 
 
+FROM 
+  Users
+JOIN 
+  Posts a ON a.OwnerUserId = Users.Id and a.PostTypeId = 2
+JOIN 
+  Posts q ON a.ParentId = q.Id
+
+WHERE
+  Users.Location = 'Victoria, BC'
+AND
+  q.Tags LIKE '%javascript%'
+
+GROUP BY 
+  Users.Id, 
+  Users.DisplayName,
+  Users.Location
+
+ORDER BY 
+  [AcceptedAnswerPercentage] DESC
 
 
 Answer:
+Id      DisplayName   Location     AcceptedAnswerPercentage 
+------- ------------- ------------ ------------------------ 
+683946  Yokel Pole    Victoria, BC 100                      
+1214800 brandonscript Victoria, BC 43                       
+151365  logan         Victoria, BC 28.6                     
+901762  Romanulus     Victoria, BC 20                       
+5017015 Tristan       Victoria, BC 0                        
+3791152 corygibbons   Victoria, BC 0                        
+1243419 Aliweb        Victoria, BC 0                        
+1237022 Matt Eff      Victoria, BC 0                        
+1221690 Kluny         Victoria, BC 0                        
+682536  Eric          Victoria, BC 0                        
+
+(10 row(s) returned)
+
