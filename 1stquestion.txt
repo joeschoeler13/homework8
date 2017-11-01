@@ -1,7 +1,33 @@
 10 oldest Victoria BC users, ordered by age:
 
 Query:
+SELECT TOP 10 
+  Id, 
+  DisplayName, 
+  Age
 
+FROM
+  Users
+
+WHERE
+  Location = 'Victoria, BC'
+  
+ORDER BY
+  Age DESC
 
 
 Answer:
+Id      DisplayName     Age 
+------- --------------- --- 
+1667183 mountaineer2525 54  
+1378476 codexmas        46  
+4628858 Omid Zamani     45  
+3154654 MarcClintDion   43  
+786319  ChalkTalk       40  
+1172459 literaphile     35  
+1423157 robru           33  
+1214800 brandonscript   32  
+151365  logan           31  
+1388869 acorscadden     31  
+
+(10 row(s) returned)
