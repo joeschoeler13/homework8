@@ -2,7 +2,38 @@ Top 5 Victoria, BC developers ordered by accepted answer percentage
 
 
 Query:
+SELECT TOP 5
+  Users.Id,
+  Users.DisplayName,
+  Users.Location,
+  ROUND((CAST(SUM(CASE WHEN a.Id=q.AcceptedAnswerId THEN 1 ELSE 0 END) AS float) / COUNT(a.Id)) * 100, 1) AS AcceptedAnswerPercentage 
 
+FROM 
+  Users
+JOIN 
+  Posts a ON a.OwnerUserId = Users.Id and a.PostTypeId = 2
+JOIN 
+  Posts q ON a.ParentId = q.Id
+
+WHERE
+  Users.Location = 'Victoria, BC'
+
+GROUP BY 
+  Users.Id, 
+  Users.DisplayName,
+  Users.Location
+
+ORDER BY 
+  [AcceptedAnswerPercentage] DESC
 
 
 Answer:
+Id      DisplayName      Location     AcceptedAnswerPercentage 
+------- ---------------- ------------ ------------------------ 
+683946  Yokel Pole       Victoria, BC 100                      
+2962519 Laura Kearns     Victoria, BC 100                      
+7869130 C R              Victoria, BC 100                      
+107150  Jeffrey Guenther Victoria, BC 73.3                     
+1221690 Kluny            Victoria, BC 54.5                     
+
+(5 row(s) returned)
